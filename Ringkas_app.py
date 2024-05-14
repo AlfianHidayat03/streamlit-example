@@ -4,13 +4,15 @@ from PyPDF2 import PdfReader
 from docx import Document
 from bs4 import BeautifulSoup
 import re
+import nltk
 from sumy.parsers.plaintext import PlaintextParser
-from sumy.parsers.pdf import PdfParser
-from sumy.parsers.docx import DocxParser
-from sumy.nlp.tokenizers import Tokenizer
+from sumy.nlp.tokenizers import Tokenizer as SumyTokenizer
 from sumy.summarizers.text_rank import TextRankSummarizer
 
-st.title('Aplikasi Peringkas Artikel')
+# Mengunduh tokenizer untuk bahasa Indonesia
+nltk.download('punkt')
+
+st.title('Aplikasi Peringkas Artikel Bahasa Indonesia')
 
 # Fungsi untuk mengambil teks dari URL
 def get_text_from_url(url):
@@ -53,12 +55,14 @@ if st.button('Lihat Teks'):
             text = ''
             for page in reader.pages:
                 text += page.extract_text()
+            text = clean_text(text)
             st.write(text)
         elif uploaded_file.name.endswith('.docx'):
             doc = Document(uploaded_file)
             text = ''
             for para in doc.paragraphs:
                 text += para.text
+            text = clean_text(text)
             st.write(text)
         else:
             st.error('Format file tidak didukung.')
@@ -66,16 +70,16 @@ if st.button('Lihat Teks'):
         st.error('Silakan masukkan URL atau unggah file.')
 
 # Fungsi peringkas teks menggunakan TextRank
-def summarize_text(text):
-    parser = PlaintextParser.from_string(text, Tokenizer("english"))
+def summarize_text(text, language='indonesian'):
+    parser = PlaintextParser.from_string(text, SumyTokenizer(language))
     summarizer = TextRankSummarizer()
     summary = summarizer(parser.document, 3)  # Merangkum menjadi 3 kalimat
     return ' '.join([str(sentence) for sentence in summary])
 
 # Tampilkan hasil peringkasan
 if st.button('Tampilkan Ringkasan'):
-    if 'text' in locals():
-        summary = summarize_text(text)
+    if text:
+        summary = summarize_text(text, language='indonesian')
         st.write(summary)
     else:
         st.error('Silakan masukkan teks untuk diringkas.')
