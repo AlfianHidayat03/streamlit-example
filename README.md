@@ -1,6 +1,6 @@
-# Welcome to Streamlit!
+# Aplikasi peringkas artikel
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
+dengan metode tahap pre processing yang memuat
+text cleansing,text splitting,stopwords removal, tokenizing
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+
