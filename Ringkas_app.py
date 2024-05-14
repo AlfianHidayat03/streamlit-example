@@ -5,6 +5,7 @@ from docx import Document
 from bs4 import BeautifulSoup
 import re
 import nltk
+from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer as SumyTokenizer
 from sumy.summarizers.text_rank import TextRankSummarizer
@@ -12,7 +13,7 @@ from sumy.summarizers.text_rank import TextRankSummarizer
 # Mengunduh tokenizer untuk bahasa Inggris (yang dapat digunakan untuk teks Indonesia)
 nltk.download('punkt')
 
-st.subheader('Selamat Datang Di Aplikasi RingkasAja.ID', divider='rainbow')
+st.subheader('Selamat Datang Di Aplikasi RingkasAja.ID')
 st.write("Solusi Meringkas Cepat dijamin Akurat")
 
 # Fungsi untuk mengambil teks dari URL
@@ -31,8 +32,11 @@ def get_text_from_url(url):
 
 # Fungsi untuk membersihkan teks
 def clean_text(text):
+    factory = StopWordRemoverFactory()
+    stopword_remover = factory.create_stop_word_remover()
     text = re.sub(r'\[.*?\]', '', text)
     text = re.sub(r'\s+', ' ', text)
+    text = stopword_remover.remove(text)
     return text
 
 # Input URL
