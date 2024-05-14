@@ -11,7 +11,7 @@ from sumy.nlp.tokenizers import Tokenizer as SumyTokenizer
 from sumy.summarizers.text_rank import TextRankSummarizer
 
 # Mengunduh tokenizer untuk bahasa Inggris (yang dapat digunakan untuk teks Indonesia)
-#nltk.download('punkt')
+nltk.download('punkt')
 
 st.subheader('Selamat Datang Di Aplikasi RingkasAja.ID')
 st.write("Solusi Meringkas Cepat dijamin Akurat")
