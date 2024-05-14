@@ -11,10 +11,10 @@ from sumy.summarizers.text_rank import TextRankSummarizer
 
 # Mengunduh tokenizer untuk bahasa Indonesia
 nltk.download('punkt')
+st.subheader('Selamat Datang Di Aplikasi RingkasAja.ID', divider='rainbow')
 """
-# Selamat Datang Di Aplikasi RingkasAja.ID
+Solusi Meringkas Cepat dijamin Akurat
 """
-st.title('Solusi Meringkas Cepat dijamin Akurat ')
 
 # Fungsi untuk mengambil teks dari URL
 def get_text_from_url(url):
