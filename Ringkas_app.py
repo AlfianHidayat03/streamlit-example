@@ -11,8 +11,10 @@ from sumy.summarizers.text_rank import TextRankSummarizer
 
 # Mengunduh tokenizer untuk bahasa Indonesia
 nltk.download('punkt')
-
-st.title('Aplikasi Peringkas Artikel Bahasa Indonesia')
+"""
+# Selamat Datang Di Aplikasi RingkasAja.ID
+"""
+st.title('Solusi Meringkas Cepat dijamin Akurat ')
 
 # Fungsi untuk mengambil teks dari URL
 def get_text_from_url(url):
@@ -47,6 +49,7 @@ if st.button('Lihat Teks'):
         # Proses URL
         text = get_text_from_url(url_input)
         text = clean_text(text)
+        st.session_state.text = text
         st.write(text)
     elif uploaded_file:
         # Proses File
@@ -56,6 +59,7 @@ if st.button('Lihat Teks'):
             for page in reader.pages:
                 text += page.extract_text()
             text = clean_text(text)
+            st.session_state.text = text
             st.write(text)
         elif uploaded_file.name.endswith('.docx'):
             doc = Document(uploaded_file)
@@ -63,6 +67,7 @@ if st.button('Lihat Teks'):
             for para in doc.paragraphs:
                 text += para.text
             text = clean_text(text)
+            st.session_state.text = text
             st.write(text)
         else:
             st.error('Format file tidak didukung.')
@@ -78,8 +83,8 @@ def summarize_text(text, language='indonesian'):
 
 # Tampilkan hasil peringkasan
 if st.button('Tampilkan Ringkasan'):
-    if text:
-        summary = summarize_text(text, language='indonesian')
+    if 'text' in st.session_state:
+        summary = summarize_text(st.session_state.text, language='indonesian')
         st.write(summary)
     else:
         st.error('Silakan masukkan teks untuk diringkas.')
