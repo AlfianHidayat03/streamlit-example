@@ -9,12 +9,11 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer as SumyTokenizer
 from sumy.summarizers.text_rank import TextRankSummarizer
 
-# Mengunduh tokenizer untuk bahasa Indonesia
+# Mengunduh tokenizer untuk bahasa Inggris (yang dapat digunakan untuk teks Indonesia)
 nltk.download('punkt')
-st.subheader('Selamat Datang Di Aplikasi RingkasAja.ID', divider='rainbow')
-"""
-Solusi Meringkas Cepat dijamin Akurat
-"""
+
+st.subheader('Selamat Datang Di Aplikasi RingkasAja.ID')
+st.write("Solusi Meringkas Cepat dijamin Akurat")
 
 # Fungsi untuk mengambil teks dari URL
 def get_text_from_url(url):
@@ -75,8 +74,8 @@ if st.button('Lihat Teks'):
         st.error('Silakan masukkan URL atau unggah file.')
 
 # Fungsi peringkas teks menggunakan TextRank
-def summarize_text(text, language='indonesian'):
-    parser = PlaintextParser.from_string(text, SumyTokenizer(language))
+def summarize_text(text):
+    parser = PlaintextParser.from_string(text, SumyTokenizer("english"))
     summarizer = TextRankSummarizer()
     summary = summarizer(parser.document, 3)  # Merangkum menjadi 3 kalimat
     return ' '.join([str(sentence) for sentence in summary])
@@ -84,7 +83,7 @@ def summarize_text(text, language='indonesian'):
 # Tampilkan hasil peringkasan
 if st.button('Tampilkan Ringkasan'):
     if 'text' in st.session_state:
-        summary = summarize_text(st.session_state.text, language='indonesian')
+        summary = summarize_text(st.session_state.text)
         st.write(summary)
     else:
         st.error('Silakan masukkan teks untuk diringkas.')
