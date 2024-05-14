@@ -6,7 +6,7 @@
             "version": "3.9"
         }
     },
-    "postCreateCommand": "pip install -r requirements.txt",
+    "postCreateCommand": "pip install -r requirements.txt && python -c \"import nltk; nltk.download('punkt')\"",
     "customizations": {
         "vscode": {
             "settings": {},
