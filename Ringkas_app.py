@@ -34,6 +34,7 @@ def get_text_from_url(url):
 def clean_text(text):
     text = re.sub(r'\[.*?\]', '', text)  # Menghapus teks dalam tanda kurung
     text = re.sub(r'\s+', ' ', text)  # Menghapus spasi berlebih
+    text = re.sub(r'\;' , ' ', text)
     text = text.lower()  # Mengubah teks menjadi huruf kecil
     return text
 
